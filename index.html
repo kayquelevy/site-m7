@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0F0F12" />
+  <title>M7 Group — M'possibilidades para a saúde</title>
+  <meta name="description" content="Hub de soluções integradas para o mercado da saúde: força de vendas consultiva, marketing, treinamento e estratégia. M'possibilidades." />
+
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles/main.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="M7 Group — M'possibilidades" />
+  <meta property="og:description" content="Inovação, Estratégia e Performance para o mercado da saúde." />
+  <meta property="og:image" content="assets/logo_laranja.png" />
+  <meta property="og:type" content="website" />
+</head>
+<body>
+
+  <!-- =========== CURSOR PERSONALIZADO =========== -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor__dot"></div>
+    <div class="cursor__ring"></div>
+  </div>
+
+  <!-- =========== LOADER =========== -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <img src="assets/logo_branca.png" alt="" class="loader__logo" />
+      <div class="loader__bar"><span></span></div>
+    </div>
+  </div>
+
+  <!-- =========== HEADER =========== -->
+  <header class="nav" id="nav">
+    <a href="#home" class="nav__brand" aria-label="M7 Group — início">
+      <img src="assets/logo_branca.png" alt="M7 Group" />
+    </a>
+
+    <nav class="nav__menu" aria-label="Menu principal">
+      <a href="#sobre" class="nav__link">Sobre</a>
+      <a href="#pilares" class="nav__link">Pilares</a>
+      <a href="#servicos" class="nav__link">Serviços</a>
+      <a href="#diferenciais" class="nav__link">Diferenciais</a>
+      <a href="#equipe" class="nav__link">Equipe</a>
+      <a href="#contato" class="nav__link">Contato</a>
+    </nav>
+
+    <a href="#contato" class="btn btn--primary btn--magnet nav__cta">
+      <span>Fale com a M7</span>
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+
+    <button class="nav__burger" id="navBurger" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- =========== MENU MOBILE =========== -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+    <a href="#sobre">Sobre</a>
+    <a href="#pilares">Pilares</a>
+    <a href="#servicos">Serviços</a>
+    <a href="#diferenciais">Diferenciais</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#contato">Contato</a>
+    <a href="https://wa.me/5511966438750" class="btn btn--primary" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+
+  <main>
+
+    <!-- =========== HERO =========== -->
+    <section class="hero" id="home">
+      <canvas class="hero__canvas" id="heroCanvas" aria-hidden="true"></canvas>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <div class="hero__glow" aria-hidden="true"></div>
+
+      <div class="hero__content">
+        <span class="hero__eyebrow reveal">
+          <span class="hero__pulse"></span>
+          Hub de soluções para saúde · São Paulo
+        </span>
+
+        <h1 class="hero__title reveal">
+          <span class="line"><span>Inovação,</span></span>
+          <span class="line"><span>Estratégia e</span></span>
+          <span class="line"><span class="grad">Performance.</span></span>
+        </h1>
+
+        <p class="hero__lead reveal">
+          A M7 Group conecta <strong>clínicas, profissionais, fornecedores e indústria</strong>
+          em uma única engrenagem comercial. Fazemos o que o mercado da saúde precisa —
+          do jeito que ninguém faz.
+        </p>
+
+        <div class="hero__ctas reveal">
+          <a href="#contato" class="btn btn--primary btn--lg btn--magnet" data-persona="clinica">
+            <span>Sou médico ou clínica</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a href="#contato" class="btn btn--ghost btn--lg btn--magnet" data-persona="fornecedor">
+            <span>Sou fornecedor ou indústria</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+        </div>
+
+        <div class="hero__tagline reveal">
+          <span class="script">M'possibilidades</span>
+          <span class="hero__divider"></span>
+          <span class="hero__hint">role para descobrir</span>
+        </div>
+      </div>
+
+      <a href="#sobre" class="hero__scroll" aria-label="Rolar para baixo">
+        <span></span>
+      </a>
+    </section>
+
+    <!-- =========== MARQUEE =========== -->
+    <section class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Força de vendas consultiva</span><span class="dot"></span>
+        <span>Marketing de posicionamento</span><span class="dot"></span>
+        <span>Treinamento técnico-comercial</span><span class="dot"></span>
+        <span>M7 Pharma</span><span class="dot"></span>
+        <span>Consultoria para clínicas</span><span class="dot"></span>
+        <span>M'possibilidades</span><span class="dot"></span>
+        <span>Força de vendas consultiva</span><span class="dot"></span>
+        <span>Marketing de posicionamento</span><span class="dot"></span>
+        <span>Treinamento técnico-comercial</span><span class="dot"></span>
+        <span>M7 Pharma</span><span class="dot"></span>
+        <span>Consultoria para clínicas</span><span class="dot"></span>
+        <span>M'possibilidades</span><span class="dot"></span>
+      </div>
+    </section>
+
+    <!-- =========== SOBRE =========== -->
+    <section class="sobre" id="sobre">
+      <div class="container sobre__inner">
+        <div class="sobre__left">
+          <span class="section__eyebrow reveal">/ Sobre nós</span>
+          <h2 class="section__title reveal">
+            Descomplicar o crescimento
+            <em>na área da saúde.</em>
+          </h2>
+          <p class="reveal sobre__text">
+            Somos um grupo formado por executivos que viveram a indústria farmacêutica
+            por dentro. Mais que uma consultoria, somos parceiros estratégicos:
+            conectamos pessoas, empresas e ideias com propósito — transformando
+            possibilidades em performance.
+          </p>
+          <p class="reveal sobre__text">
+            Nosso jeito é prático, humano e direto ao resultado. A gente vive o que entrega.
+          </p>
+
+          <div class="stats">
+            <div class="stat reveal">
+              <div class="stat__num" data-count="54">0</div>
+              <div class="stat__label">anos somados<br/>de experiência</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat__num" data-count="4">0</div>
+              <div class="stat__label">diretores<br/>operando juntos</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat__num" data-count="3">0</div>
+              <div class="stat__label">pilares<br/>de atuação</div>
+            </div>
+            <div class="stat reveal">
+              <div class="stat__num" data-count="100" data-suffix="%">0</div>
+              <div class="stat__label">foco no<br/>setor da saúde</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sobre__right reveal">
+          <div class="sobre__card sobre__card--mission">
+            <span class="card__tag">Missão</span>
+            <p>Descomplicar o crescimento na área da saúde, conectando pessoas, empresas e ideias com estratégia e propósito.</p>
+          </div>
+          <div class="sobre__card sobre__card--vision">
+            <span class="card__tag">Visão</span>
+            <p>Ser o grupo mais confiável e relevante em soluções integradas para a saúde.</p>
+          </div>
+          <div class="sobre__card sobre__card--values">
+            <span class="card__tag">Valores</span>
+            <ul>
+              <li>Foco em pessoas</li>
+              <li>Inovação</li>
+              <li>Excelência</li>
+              <li>Parceria estratégica</li>
+              <li>Transparência e ética</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========== PILARES =========== -->
+    <section class="pilares" id="pilares">
+      <div class="container">
+        <header class="section__header">
+          <span class="section__eyebrow reveal">/ Pilares</span>
+          <h2 class="section__title reveal">Três frentes que se conectam<br/>numa só engrenagem.</h2>
+          <p class="section__sub reveal">Cada pilar resolve uma dor real do mercado da saúde — e juntos formam o ecossistema M7.</p>
+        </header>
+
+        <div class="pilares__grid">
+          <article class="pilar reveal" data-pilar="01">
+            <div class="pilar__num">01</div>
+            <div class="pilar__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 26V12l12-8 12 8v14"/><path d="M12 26v-8h8v8"/></svg>
+            </div>
+            <h3 class="pilar__title">Impulsionando<br/>Negócios</h3>
+            <p class="pilar__desc">Para fornecedores e indústria farmacêutica que precisam de força de vendas, marketing e posicionamento que geram resultado em campo.</p>
+            <ul class="pilar__list">
+              <li>Consultoria comercial</li>
+              <li>Força de vendas consultiva</li>
+              <li>Marketing de posicionamento</li>
+              <li>Treinamento e suporte</li>
+            </ul>
+            <a href="#contato" class="pilar__cta">Falar com especialista <span>→</span></a>
+          </article>
+
+          <article class="pilar pilar--center reveal" data-pilar="02">
+            <div class="pilar__num">02</div>
+            <div class="pilar__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 28s-10-6.5-10-14a6 6 0 0 1 10-4 6 6 0 0 1 10 4c0 7.5-10 14-10 14z"/></svg>
+            </div>
+            <h3 class="pilar__title">Cuidando<br/>de Pessoas</h3>
+            <p class="pilar__desc">Para clínicas, franquias e profissionais que querem crescer com método, treinamento e estratégia sob medida.</p>
+            <ul class="pilar__list">
+              <li>Consultoria para clínicas</li>
+              <li>Capacitação profissional</li>
+              <li>Programas personalizados</li>
+              <li>Conteúdo estratégico</li>
+            </ul>
+            <a href="#contato" class="pilar__cta">Conheça os treinamentos <span>→</span></a>
+          </article>
+
+          <article class="pilar reveal" data-pilar="03">
+            <div class="pilar__num">03</div>
+            <div class="pilar__icon">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="16" cy="16" r="11"/><path d="M5 16h22M16 5a17 17 0 0 1 0 22M16 5a17 17 0 0 0 0 22"/></svg>
+            </div>
+            <h3 class="pilar__title">Movendo<br/>a Saúde</h3>
+            <p class="pilar__desc">M7 Pharma: posicionamento de marca, análise estratégica de mercado e estrutura para marcas próprias com visão de futuro.</p>
+            <ul class="pilar__list">
+              <li>Posicionamento de marca</li>
+              <li>Análise estratégica</li>
+              <li>Marcas próprias</li>
+              <li>Pré-lançamento de produtos</li>
+            </ul>
+            <a href="#contato" class="pilar__cta">Saiba mais <span>→</span></a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========== SERVIÇOS (TABS) =========== -->
+    <section class="servicos" id="servicos">
+      <div class="container">
+        <header class="section__header">
+          <span class="section__eyebrow reveal">/ Serviços</span>
+          <h2 class="section__title reveal">O que <em>entregamos</em><br/>na prática.</h2>
+        </header>
+
+        <div class="tabs reveal">
+          <div class="tabs__nav" role="tablist">
+            <button class="tabs__btn is-active" data-tab="t1" role="tab">Vendas</button>
+            <button class="tabs__btn" data-tab="t2" role="tab">Marketing</button>
+            <button class="tabs__btn" data-tab="t3" role="tab">Treinamento</button>
+            <button class="tabs__btn" data-tab="t4" role="tab">M7 Pharma</button>
+            <span class="tabs__indicator" id="tabsIndicator"></span>
+          </div>
+
+          <div class="tabs__panels">
+            <div class="tabs__panel is-active" id="t1">
+              <h3>Força de vendas consultiva</h3>
+              <p>Times treinados em saúde que constroem relacionamento, geram demanda e entregam presença real em campo. Ciclo comercial completo — do mapeamento à conversão.</p>
+              <div class="tabs__bullets">
+                <div><strong>+ Cobertura</strong> em região e canal</div>
+                <div><strong>+ Conversão</strong> com abordagem técnica</div>
+                <div><strong>+ Retenção</strong> via relacionamento</div>
+              </div>
+            </div>
+            <div class="tabs__panel" id="t2">
+              <h3>Marketing com foco em conversão</h3>
+              <p>Posicionamento institucional e promocional voltado para o que importa: gerar demanda qualificada para o setor da saúde. Branding, conteúdo e ações de mídia integrada.</p>
+              <div class="tabs__bullets">
+                <div><strong>Branding</strong> com identidade clara</div>
+                <div><strong>Conteúdo</strong> técnico-educacional</div>
+                <div><strong>Campanhas</strong> com KPI definido</div>
+              </div>
+            </div>
+            <div class="tabs__panel" id="t3">
+              <h3>Treinamento que vira ação</h3>
+              <p>Capacitação técnica, comercial e comportamental para equipes da saúde. Programas in-company e abertos, conduzidos por quem viveu o mercado por dentro.</p>
+              <div class="tabs__bullets">
+                <div><strong>Hard skills</strong> técnico-comerciais</div>
+                <div><strong>Soft skills</strong> consultivas</div>
+                <div><strong>Mentorias</strong> 1:1 com a diretoria</div>
+              </div>
+            </div>
+            <div class="tabs__panel" id="t4">
+              <h3>M7 Pharma — Movendo a Saúde</h3>
+              <p>Estrutura para marcas próprias, análise estratégica do mercado farmacêutico e posicionamento com visão de futuro. Onde a M7 se torna parte do produto.</p>
+              <div class="tabs__bullets">
+                <div><strong>Estratégia</strong> de pré-lançamento</div>
+                <div><strong>Pesquisa</strong> de mercado farma</div>
+                <div><strong>Roadmap</strong> de marca própria</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========== DIFERENCIAIS =========== -->
+    <section class="dif" id="diferenciais">
+      <div class="container">
+        <header class="section__header">
+          <span class="section__eyebrow reveal">/ Diferenciais</span>
+          <h2 class="section__title reveal">Por que escolher a <em>M7</em>.</h2>
+        </header>
+
+        <div class="dif__grid">
+          <div class="dif__card reveal">
+            <div class="dif__num">/01</div>
+            <h3>Expertise que vem da prática</h3>
+            <p>Diretoria com mais de 54 anos somados dentro da indústria farmacêutica. Não é teoria — é vivência.</p>
+          </div>
+          <div class="dif__card reveal">
+            <div class="dif__num">/02</div>
+            <h3>Força de vendas que gera resultado</h3>
+            <p>Times consultivos que entendem o produto, o canal e o cliente — não vendedores genéricos.</p>
+          </div>
+          <div class="dif__card reveal">
+            <div class="dif__num">/03</div>
+            <h3>Marketing com foco em conversão</h3>
+            <p>Branding e campanhas conectados ao funil comercial. Cada ação tem propósito e métrica.</p>
+          </div>
+          <div class="dif__card reveal">
+            <div class="dif__num">/04</div>
+            <h3>Treinamento que vira ação</h3>
+            <p>Capacitação aplicada que sai da sala e chega no resultado da equipe — sem enrolação.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========== EQUIPE =========== -->
+    <section class="equipe" id="equipe">
+      <div class="container">
+        <header class="section__header">
+          <span class="section__eyebrow reveal">/ Diretoria</span>
+          <h2 class="section__title reveal">Quem está<br/>conduzindo a M7.</h2>
+          <p class="section__sub reveal">Quatro executivos. <strong>54 anos somados</strong> de experiência no setor.</p>
+        </header>
+
+        <div class="equipe__grid">
+          <article class="membro reveal">
+            <div class="membro__photo">
+              <img src="conduzindo-m7/Marcos.png" alt="Marcos Alves" loading="lazy" />
+              <span class="membro__years">18 anos</span>
+            </div>
+            <h3>Marcos Alves</h3>
+            <p class="membro__role">CEO</p>
+            <p class="membro__bio">18 anos em farma — visão de negócio e liderança comercial.</p>
+            <div class="membro__social">
+              <a href="https://www.linkedin.com/in/marcos-felipe-alves-506b0372/" target="_blank" rel="noopener" aria-label="LinkedIn de Marcos Alves" title="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.339 18.338v-7.18H5.954v7.18h2.385zm-1.192-8.16a1.382 1.382 0 1 0 0-2.765 1.382 1.382 0 0 0 0 2.765zm10.658 8.16v-3.937c0-2.063-1.099-3.025-2.566-3.025-1.184 0-1.716.652-2.012 1.107v-.95H10.84c.032.674 0 7.18 0 7.18h2.387v-4.01c0-.213.015-.428.078-.58.171-.428.564-.872 1.223-.872.862 0 1.207.657 1.207 1.62v3.842h2.07z"/></svg>
+              </a>
+              <a href="mailto:marcos@m7groupbr.com" aria-label="E-mail de Marcos Alves" title="marcos@m7groupbr.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="membro reveal">
+            <div class="membro__photo">
+              <img src="conduzindo-m7/Vinicius.png" alt="Vinicius de Paula" loading="lazy" />
+              <span class="membro__years">13 anos</span>
+            </div>
+            <h3>Vinicius de Paula</h3>
+            <p class="membro__role">Diretor de Marketing</p>
+            <p class="membro__bio">13 anos em farma — posicionamento de marca e estratégia.</p>
+            <div class="membro__social">
+              <a href="https://www.linkedin.com/in/vinicius-de-paula-0670a9b5/" target="_blank" rel="noopener" aria-label="LinkedIn de Vinicius de Paula" title="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.339 18.338v-7.18H5.954v7.18h2.385zm-1.192-8.16a1.382 1.382 0 1 0 0-2.765 1.382 1.382 0 0 0 0 2.765zm10.658 8.16v-3.937c0-2.063-1.099-3.025-2.566-3.025-1.184 0-1.716.652-2.012 1.107v-.95H10.84c.032.674 0 7.18 0 7.18h2.387v-4.01c0-.213.015-.428.078-.58.171-.428.564-.872 1.223-.872.862 0 1.207.657 1.207 1.62v3.842h2.07z"/></svg>
+              </a>
+              <a href="mailto:vinicius@m7groupbr.com" aria-label="E-mail de Vinicius de Paula" title="vinicius@m7groupbr.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="membro reveal">
+            <div class="membro__photo">
+              <img src="conduzindo-m7/Tiago.png" alt="Tiago Levy" loading="lazy" />
+              <span class="membro__years">15 anos</span>
+            </div>
+            <h3>Tiago Levy</h3>
+            <p class="membro__role">Diretor Financeiro</p>
+            <p class="membro__bio">15 anos no setor financeiro — governança e crescimento sustentável.</p>
+            <div class="membro__social">
+              <a href="https://www.linkedin.com/in/tiago-levy-2b4000105/" target="_blank" rel="noopener" aria-label="LinkedIn de Tiago Levy" title="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.339 18.338v-7.18H5.954v7.18h2.385zm-1.192-8.16a1.382 1.382 0 1 0 0-2.765 1.382 1.382 0 0 0 0 2.765zm10.658 8.16v-3.937c0-2.063-1.099-3.025-2.566-3.025-1.184 0-1.716.652-2.012 1.107v-.95H10.84c.032.674 0 7.18 0 7.18h2.387v-4.01c0-.213.015-.428.078-.58.171-.428.564-.872 1.223-.872.862 0 1.207.657 1.207 1.62v3.842h2.07z"/></svg>
+              </a>
+              <a href="mailto:levy@m7groupbr.com" aria-label="E-mail de Tiago Levy" title="levy@m7groupbr.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </a>
+            </div>
+          </article>
+
+          <article class="membro reveal">
+            <div class="membro__photo">
+              <img src="conduzindo-m7/Gabriela.png" alt="Gabriela Moreira" loading="lazy" />
+              <span class="membro__years">8 anos</span>
+            </div>
+            <h3>Gabriela Moreira</h3>
+            <p class="membro__role">Diretora Comercial & Treinamento</p>
+            <p class="membro__bio">8 anos em farma — vendas consultivas e desenvolvimento de pessoas.</p>
+            <div class="membro__social">
+              <a href="https://www.linkedin.com/in/gabriela-moreira-a31b2b36a/" target="_blank" rel="noopener" aria-label="LinkedIn de Gabriela Moreira" title="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.339 18.338v-7.18H5.954v7.18h2.385zm-1.192-8.16a1.382 1.382 0 1 0 0-2.765 1.382 1.382 0 0 0 0 2.765zm10.658 8.16v-3.937c0-2.063-1.099-3.025-2.566-3.025-1.184 0-1.716.652-2.012 1.107v-.95H10.84c.032.674 0 7.18 0 7.18h2.387v-4.01c0-.213.015-.428.078-.58.171-.428.564-.872 1.223-.872.862 0 1.207.657 1.207 1.62v3.842h2.07z"/></svg>
+              </a>
+              <a href="mailto:gabriela@m7groupbr.com" aria-label="E-mail de Gabriela Moreira" title="gabriela@m7groupbr.com">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+              </a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========== MANIFESTO / CTA =========== -->
+    <section class="manifesto">
+      <div class="container manifesto__inner">
+        <p class="manifesto__quote reveal">
+          <span class="q">“</span>
+          Fazemos o que o mercado precisa,<br/>
+          <em>do jeito que ninguém faz.</em>
+          <span class="q q--end">”</span>
+        </p>
+        <p class="manifesto__sub reveal">— Um novo jeito de crescer na área da saúde.</p>
+        <a href="#contato" class="btn btn--primary btn--lg btn--magnet reveal">
+          <span>Vamos construir juntos</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- =========== CONTATO =========== -->
+    <section class="contato" id="contato">
+      <div class="container contato__inner">
+        <div class="contato__left">
+          <span class="section__eyebrow reveal">/ Contato</span>
+          <h2 class="section__title reveal">Pronto para abrir<br/>novas <em>M'possibilidades</em>?</h2>
+          <p class="reveal contato__lead">Conte pra gente o seu desafio. Nossa equipe responde rápido pelo WhatsApp ou e-mail.</p>
+
+          <div class="contato__cards">
+            <a href="https://wa.me/5511966438750" target="_blank" rel="noopener" class="contato__card reveal">
+              <span class="contato__icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.823 11.823 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zM6.597 20.13l.347.206a9.86 9.86 0 0 0 5.022 1.376h.004c5.448 0 9.886-4.434 9.889-9.885a9.825 9.825 0 0 0-2.896-6.991 9.815 9.815 0 0 0-6.991-2.899c-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l.235.373-1 3.65 3.769-.974zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.463 1.065 2.876 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"/></svg>
+              </span>
+              <div>
+                <strong>Comercial</strong>
+                <span>+55 11 96643-8750</span>
+              </div>
+            </a>
+
+            <a href="https://wa.me/5511973332183" target="_blank" rel="noopener" class="contato__card reveal">
+              <span class="contato__icon">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.823 11.823 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zM6.597 20.13l.347.206a9.86 9.86 0 0 0 5.022 1.376h.004c5.448 0 9.886-4.434 9.889-9.885a9.825 9.825 0 0 0-2.896-6.991 9.815 9.815 0 0 0-6.991-2.899c-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l.235.373-1 3.65 3.769-.974z"/></svg>
+              </span>
+              <div>
+                <strong>Treinamentos</strong>
+                <span>+55 11 97333-2183</span>
+              </div>
+            </a>
+
+            <div class="contato__card reveal">
+              <span class="contato__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-8 8-13a8 8 0 0 0-16 0c0 5 8 13 8 13z"/><circle cx="12" cy="9" r="3"/></svg>
+              </span>
+              <div>
+                <strong>Endereço</strong>
+                <span>R. Bom Sucesso, 220 — Tatuapé<br/>São Paulo/SP · 03305-000</span>
+              </div>
+            </div>
+
+            <div class="contato__card reveal">
+              <span class="contato__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg>
+              </span>
+              <div>
+                <strong>Redes</strong>
+                <span><a href="https://instagram.com/m7groupbr" target="_blank" rel="noopener">@m7groupbr</a> · <a href="https://linkedin.com/company/m7-group-br" target="_blank" rel="noopener">LinkedIn</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form class="contato__form reveal" id="contatoForm" novalidate>
+          <div class="form__row">
+            <label>
+              <span>Nome</span>
+              <input type="text" name="nome" required autocomplete="given-name" />
+            </label>
+            <label>
+              <span>Sobrenome</span>
+              <input type="text" name="sobrenome" required autocomplete="family-name" />
+            </label>
+          </div>
+
+          <label>
+            <span>E-mail</span>
+            <input type="email" name="email" required autocomplete="email" />
+          </label>
+
+          <label>
+            <span>Empresa</span>
+            <input type="text" name="empresa" autocomplete="organization" />
+          </label>
+
+          <fieldset class="form__persona">
+            <legend>Sou:</legend>
+            <label class="radio">
+              <input type="radio" name="persona" value="clinica" />
+              <span>Médico ou clínica</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="persona" value="fornecedor" />
+              <span>Fornecedor ou indústria</span>
+            </label>
+            <label class="radio">
+              <input type="radio" name="persona" value="outro" />
+              <span>Outro</span>
+            </label>
+          </fieldset>
+
+          <label>
+            <span>Mensagem</span>
+            <textarea name="mensagem" rows="4" required></textarea>
+          </label>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--magnet">
+            <span>Enviar mensagem</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+
+          <p class="form__status" id="formStatus" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========== FOOTER =========== -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img src="assets/logo_branca.png" alt="M7 Group" />
+        <p class="footer__tag"><span class="script">M'possibilidades</span></p>
+      </div>
+
+      <div class="footer__cols">
+        <div>
+          <h4>Navegar</h4>
+          <a href="#sobre">Sobre</a>
+          <a href="#pilares">Pilares</a>
+          <a href="#servicos">Serviços</a>
+          <a href="#diferenciais">Diferenciais</a>
+          <a href="#equipe">Equipe</a>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <a href="https://wa.me/5511966438750" target="_blank" rel="noopener">WhatsApp comercial</a>
+          <a href="https://wa.me/5511973332183" target="_blank" rel="noopener">WhatsApp treinamentos</a>
+          <a href="#contato">Formulário</a>
+        </div>
+        <div>
+          <h4>Redes</h4>
+          <a href="https://instagram.com/m7groupbr" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://linkedin.com/company/m7-group-br" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer__bottom container">
+      <span>© <span id="year"></span> M7 Group. Todos os direitos reservados.</span>
+      <span>R. Bom Sucesso, 220 · Tatuapé · São Paulo/SP</span>
+    </div>
+  </footer>
+
+  <!-- =========== WhatsApp Float =========== -->
+  <a href="https://wa.me/5511966438750" target="_blank" rel="noopener" class="wa-float" aria-label="Falar no WhatsApp">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.823 11.823 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zM6.597 20.13l.347.206a9.86 9.86 0 0 0 5.022 1.376h.004c5.448 0 9.886-4.434 9.889-9.885a9.825 9.825 0 0 0-2.896-6.991 9.815 9.815 0 0 0-6.991-2.899c-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l.235.373-1 3.65 3.769-.974zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.297-.497.099-.198.05-.371-.025-.52-.074-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.463 1.065 2.876 1.213 3.074.149.198 2.095 3.2 5.076 4.487.71.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.247-.694.247-1.289.173-1.413z"/></svg>
+  </a>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+</html>
