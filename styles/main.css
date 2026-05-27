@@ -95,6 +95,23 @@ input, textarea, select { font: inherit; color: inherit; }
   width: 60px; height: 60px;
   background: rgba(255,255,255,0.08);
 }
+.cursor.is-dragging .cursor__ring {
+  width: 52px; height: 52px;
+  background: rgba(233, 78, 27, 0.22);
+  border-color: var(--m7-primary);
+  border-width: 2px;
+}
+.cursor.is-dragging .cursor__dot {
+  width: 4px; height: 4px;
+  background: var(--m7-primary);
+}
+
+/* Drag-to-scroll: body fica em "grabbing" e bloqueia seleção */
+body.is-dragging,
+body.is-dragging * { user-select: none !important; }
+@media (hover: hover) and (pointer: fine) {
+  body.is-dragging { cursor: none !important; }
+}
 
 /* =================================================================
    LOADER
