@@ -846,10 +846,14 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 24px;
+  align-items: stretch;
 }
 .membro {
   text-align: center;
   transition: transform 0.4s var(--ease-out);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .membro:hover { transform: translateY(-6px); }
 
@@ -930,6 +934,8 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
   display: flex;
   justify-content: center;
   gap: 10px;
+  margin-top: auto;
+  padding-top: 4px;
 }
 .membro__social a {
   width: 38px;
