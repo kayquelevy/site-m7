@@ -941,31 +941,34 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
 }
 
 .membro__social {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: auto;
-  padding-top: 4px;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 4;
 }
 .membro__social a {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--m7-bg-card);
-  border: 1px solid var(--m7-border);
+  background: rgba(15, 15, 18, 0.55);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--m7-text-mute);
-  transition: transform 0.3s var(--ease-out), background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s;
+  color: #fff;
+  transition: transform 0.3s var(--ease-out), background 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
-.membro__social a svg { width: 17px; height: 17px; }
+.membro__social a svg { width: 16px; height: 16px; }
 .membro__social a:hover {
-  transform: translateY(-3px);
+  transform: translateX(-3px) scale(1.08);
   background: var(--m7-primary);
   border-color: var(--m7-primary);
-  color: #fff;
-  box-shadow: 0 8px 20px -6px rgba(233,78,27,0.55);
+  box-shadow: 0 8px 22px -6px rgba(233, 78, 27, 0.7);
 }
 
 /* =================================================================
