@@ -858,7 +858,7 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
   object-position: center 20%;
   display: block;
   transition: transform 0.6s var(--ease-out), filter 0.4s;
-  filter: saturate(0.95) contrast(1.02);
+  image-rendering: auto;
 }
 .membro__photo::after {
   content: "";
@@ -880,7 +880,7 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
 }
 .membro:hover .membro__photo { border-color: var(--m7-primary); }
 .membro:hover .membro__photo::before { opacity: 1; }
-.membro:hover .membro__photo img { transform: scale(1.05); filter: saturate(1.1) contrast(1.05); }
+.membro:hover .membro__photo img { transform: scale(1.04); }
 
 .membro h3 {
   font-family: var(--font-display);

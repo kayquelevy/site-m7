@@ -5,3 +5,5 @@ desktop.ini
 .vscode/
 .idea/
 node_modules/
+_originals/
+_enhance_photos.py
