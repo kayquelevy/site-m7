@@ -882,45 +882,62 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
 .membro:hover .membro__photo::before { opacity: 1; }
 .membro:hover .membro__photo img { transform: scale(1.05); filter: saturate(1.1) contrast(1.05); }
 
-.membro__years {
-  position: absolute;
-  top: 16px; right: 16px;
-  padding: 6px 12px;
-  background: rgba(15,15,18,0.7);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--m7-border);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--m7-primary-hover);
-  z-index: 3;
-}
-
 .membro h3 {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   letter-spacing: -0.01em;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  margin-top: 4px;
 }
 .membro__role {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--m7-primary);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 18px;
   line-height: 1.35;
   min-height: 2.7em;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.membro__bio {
-  font-size: 14px;
-  color: var(--m7-text-mute);
-  margin-bottom: 14px;
-  min-height: 3em;
+
+.membro__checks {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: left;
+  margin: 0 auto 22px;
+  padding: 0;
+  width: fit-content;
+  max-width: 100%;
+}
+.membro__checks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: var(--m7-text);
+  line-height: 1.3;
+  font-weight: 400;
+}
+.membro__checks li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: rgba(233, 78, 27, 0.18);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E94E1B' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: 12px 12px;
+  background-position: center;
+  transition: transform 0.3s var(--ease-out), background-color 0.3s;
+}
+.membro:hover .membro__checks li::before {
+  background-color: var(--m7-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");
 }
 
 .membro__social {
