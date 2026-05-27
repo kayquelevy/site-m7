@@ -95,23 +95,6 @@ input, textarea, select { font: inherit; color: inherit; }
   width: 60px; height: 60px;
   background: rgba(255,255,255,0.08);
 }
-.cursor.is-dragging .cursor__ring {
-  width: 52px; height: 52px;
-  background: rgba(233, 78, 27, 0.22);
-  border-color: var(--m7-primary);
-  border-width: 2px;
-}
-.cursor.is-dragging .cursor__dot {
-  width: 4px; height: 4px;
-  background: var(--m7-primary);
-}
-
-/* Drag-to-scroll: body fica em "grabbing" e bloqueia seleção */
-body.is-dragging,
-body.is-dragging * { user-select: none !important; }
-@media (hover: hover) and (pointer: fine) {
-  body.is-dragging { cursor: none !important; }
-}
 
 /* =================================================================
    LOADER
@@ -927,8 +910,18 @@ section { padding: clamp(80px, 12vw, 160px) 0; position: relative; }
   letter-spacing: 0.1em;
   font-weight: 600;
   margin-bottom: 10px;
+  line-height: 1.35;
+  min-height: 2.7em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.membro__bio { font-size: 14px; color: var(--m7-text-mute); margin-bottom: 14px; }
+.membro__bio {
+  font-size: 14px;
+  color: var(--m7-text-mute);
+  margin-bottom: 14px;
+  min-height: 3em;
+}
 
 .membro__social {
   display: flex;
