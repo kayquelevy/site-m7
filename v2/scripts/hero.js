@@ -1,34 +1,47 @@
 /* =====================================================================
-   M7 v2 — Hero WebGL shader + canvas particles  (OTIMIZADO)
-   - cada canvas só renderiza quando visível na tela
-   - shader em resolução reduzida + menos noise
-   - mobile/baixo desempenho: fallback CSS, sem canvas
+   M7 v2 — Hero WebGL shader + canvas particles
+   Qualidade x performance via ORÇAMENTO DE PIXELS:
+   - celular (tela pequena) → renderiza quase nativo = nítido
+   - desktop grande → escala p/ baixo só o suficiente p/ não pesar
+   - dithering mata banding; canvases pausam fora da tela
    ===================================================================== */
 (() => {
   "use strict";
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const mobile = innerWidth < 760;
-  const lowPerf = reduced || mobile ||
-    (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2);
+  const weakCPU = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 2;
+  const noShader = reduced || weakCPU;          // shader roda até no celular
+  const noParticles = reduced || mobile || weakCPU; // partículas só no desktop
 
-  // Observa visibilidade: só anima o que está na tela
+  const DPR = Math.min(devicePixelRatio || 1, 2);
+  const PX_BUDGET = 1600000; // teto de pixels renderizados por frame
+
   const onView = (el, cb) => {
     if (!("IntersectionObserver" in window)) { cb(true); return; }
     new IntersectionObserver(es => cb(es[0].isIntersecting), { threshold: 0, rootMargin: "120px" }).observe(el);
   };
-  const visiblePage = () => !document.hidden;
+  const pageVisible = () => !document.hidden;
+
+  // resolução do canvas respeitando DPR mas limitada por orçamento
+  const sizeToBudget = (cv, budget) => {
+    let cw = cv.clientWidth * DPR, ch = cv.clientHeight * DPR;
+    const px = cw * ch;
+    const s = px > budget ? Math.sqrt(budget / px) : 1;
+    cv.width = Math.max(2, Math.round(cw * s));
+    cv.height = Math.max(2, Math.round(ch * s));
+    return cv.width / cv.clientWidth; // escala efetiva (px/CSSpx)
+  };
 
   /* ---------- WebGL shader gradient ---------- */
   const canvas = document.getElementById("heroGL");
   const cssFallback = () => { if (canvas) canvas.style.background = "radial-gradient(ellipse at 70% 15%, rgba(233,78,27,.28), #08080A 60%)"; };
 
-  if (canvas && !lowPerf) {
+  if (canvas && !noShader) {
     const gl = canvas.getContext("webgl", { antialias: false, powerPreference: "high-performance" }) ||
                canvas.getContext("experimental-webgl");
     if (!gl) { cssFallback(); }
     else {
       const vert = `attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}`;
-      // 3 octaves de fbm + 1 noise extra (era 8 chamadas, agora 4)
       const frag = `
         precision mediump float;
         uniform float uT; uniform vec2 uR; uniform vec2 uM;
@@ -49,6 +62,7 @@
           return 130.0*dot(m,g);
         }
         float fbm(vec2 p){float s=0.0,a=0.5;for(int i=0;i<3;i++){s+=a*snoise(p);p*=2.0;a*=0.5;}return s;}
+        float dither(vec2 c){return (fract(sin(dot(c,vec2(12.9898,78.233)))*43758.5453)-0.5)/255.0;}
         void main(){
           vec2 uv=gl_FragCoord.xy/uR;
           vec2 asp=vec2(uR.x/uR.y,1.0);
@@ -66,6 +80,7 @@
           col=mix(col,ember,smoothstep(0.80,1.25,f+spot));
           float vig=1.0-smoothstep(0.35,1.05,length(uv-0.5)*1.25);
           col*=0.55+0.55*vig; col+=spot*0.25*ember;
+          col+=dither(gl_FragCoord.xy);   // mata o banding
           gl_FragColor=vec4(col,1.0);
         }`;
       const sh = (t, s) => { const o = gl.createShader(t); gl.shaderSource(o, s); gl.compileShader(o); return o; };
@@ -79,13 +94,8 @@
       gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
       const uT = gl.getUniformLocation(prog, "uT"), uR = gl.getUniformLocation(prog, "uR"), uM = gl.getUniformLocation(prog, "uM");
 
-      const RES = 0.65; // resolução interna reduzida (gradiente é suave → invisível)
       let mx = .5, my = .5, tmx = .5, tmy = .5;
-      const resize = () => {
-        canvas.width = Math.max(2, Math.round(canvas.clientWidth * RES));
-        canvas.height = Math.max(2, Math.round(canvas.clientHeight * RES));
-        gl.viewport(0, 0, canvas.width, canvas.height);
-      };
+      const resize = () => { sizeToBudget(canvas, PX_BUDGET); gl.viewport(0, 0, canvas.width, canvas.height); };
       addEventListener("resize", resize); resize();
       addEventListener("mousemove", e => {
         const r = canvas.getBoundingClientRect();
@@ -95,7 +105,7 @@
       let on = true; onView(canvas, v => on = v);
       const t0 = performance.now();
       const loop = () => {
-        if (on && visiblePage()) {
+        if (on && pageVisible()) {
           mx += (tmx - mx) * .05; my += (tmy - my) * .05;
           gl.uniform1f(uT, (performance.now() - t0) / 1000);
           gl.uniform2f(uR, canvas.width, canvas.height);
@@ -108,33 +118,34 @@
     }
   } else { cssFallback(); }
 
-  /* ---------- partículas do hero ---------- */
+  /* ---------- partículas do hero (desktop) ---------- */
   const pc = document.getElementById("heroParticles");
-  if (pc && !lowPerf) {
+  if (pc && !noParticles) {
     const ctx = pc.getContext("2d");
+    const PDPR = Math.min(DPR, 1.75);
     let w, h, parts = [], mX = -9999, mY = -9999, on = true;
-    const COUNT = 46, LINK = 140, DPR = 1;       // dpr fixo 1 → metade dos pixels
-    const resize = () => { w = pc.width = pc.clientWidth; h = pc.height = pc.clientHeight; };
-    const init = () => { parts = []; for (let i = 0; i < COUNT; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .3, vy: (Math.random() - .5) * .3, r: Math.random() * 1.6 + .5 }); };
+    const COUNT = 50, LINK = 150 * PDPR;
+    const resize = () => { w = pc.width = pc.clientWidth * PDPR; h = pc.height = pc.clientHeight * PDPR; };
+    const init = () => { parts = []; for (let i = 0; i < COUNT; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, vx: (Math.random() - .5) * .3 * PDPR, vy: (Math.random() - .5) * .3 * PDPR, r: (Math.random() * 1.5 + .6) * PDPR }); };
     const draw = () => {
-      if (on && visiblePage()) {
+      if (on && pageVisible()) {
         ctx.clearRect(0, 0, w, h);
         for (const p of parts) {
           p.x += p.vx; p.y += p.vy;
           if (p.x < 0 || p.x > w) p.vx *= -1;
           if (p.y < 0 || p.y > h) p.vy *= -1;
-          const dx = p.x - mX, dy = p.y - mY, dm = Math.hypot(dx, dy);
-          if (dm < 130) { const f = (130 - dm) / 130; p.x += dx / dm * f * 2; p.y += dy / dm * f * 2; }
+          const dx = p.x - mX, dy = p.y - mY, dm = Math.hypot(dx, dy), R = 130 * PDPR;
+          if (dm < R) { const f = (R - dm) / R; p.x += dx / dm * f * 2; p.y += dy / dm * f * 2; }
           ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.fill();
         }
         for (let i = 0; i < parts.length; i++) for (let j = i + 1; j < parts.length; j++) {
           const a = parts[i], c = parts[j], d = Math.hypot(a.x - c.x, a.y - c.y);
-          if (d < LINK) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(c.x, c.y); ctx.strokeStyle = `rgba(233,78,27,${(1 - d / LINK) * .2})`; ctx.lineWidth = 1; ctx.stroke(); }
+          if (d < LINK) { ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(c.x, c.y); ctx.strokeStyle = `rgba(233,78,27,${(1 - d / LINK) * .2})`; ctx.lineWidth = PDPR; ctx.stroke(); }
         }
       }
       requestAnimationFrame(draw);
     };
-    addEventListener("mousemove", e => { const r = pc.getBoundingClientRect(); mX = e.clientX - r.left; mY = e.clientY - r.top; }, { passive: true });
+    addEventListener("mousemove", e => { const r = pc.getBoundingClientRect(); mX = (e.clientX - r.left) * PDPR; mY = (e.clientY - r.top) * PDPR; }, { passive: true });
     addEventListener("mouseout", () => { mX = -9999; mY = -9999; });
     addEventListener("resize", () => { resize(); init(); });
     onView(pc, v => on = v);
@@ -143,16 +154,17 @@
 
   /* ---------- partículas do CTA ---------- */
   const cta = document.getElementById("ctaParticles");
-  if (cta && !lowPerf) {
+  if (cta && !noParticles) {
     const ctx = cta.getContext("2d");
+    const PDPR = Math.min(DPR, 1.75);
     let w, h, parts = [], on = false;
     const build = () => {
-      w = cta.width = cta.clientWidth; h = cta.height = cta.clientHeight;
-      parts = []; const n = 38;
-      for (let i = 0; i < n; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, vy: -(Math.random() * .4 + .1), r: Math.random() * 2 + .5, a: Math.random() * .5 + .1 });
+      w = cta.width = cta.clientWidth * PDPR; h = cta.height = cta.clientHeight * PDPR;
+      parts = []; const n = 40;
+      for (let i = 0; i < n; i++) parts.push({ x: Math.random() * w, y: Math.random() * h, vy: -(Math.random() * .4 + .1) * PDPR, r: (Math.random() * 2 + .5) * PDPR, a: Math.random() * .5 + .1 });
     };
     const draw = () => {
-      if (on && visiblePage()) {
+      if (on && pageVisible()) {
         ctx.clearRect(0, 0, w, h);
         for (const p of parts) { p.y += p.vy; if (p.y < -10) { p.y = h + 10; p.x = Math.random() * w; } ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, 6.283); ctx.fillStyle = `rgba(255,122,61,${p.a})`; ctx.fill(); }
       }

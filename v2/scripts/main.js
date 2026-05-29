@@ -240,7 +240,7 @@
     setPanel(NODES[0]);
 
     const layout = () => {
-      dpr = Math.min(devicePixelRatio || 1, 1.5);
+      dpr = Math.min(devicePixelRatio || 1, 2);
       w = ec.width = ec.clientWidth * dpr;
       h = ec.height = ec.clientHeight * dpr;
       cx = w / 2; cy = h / 2;
