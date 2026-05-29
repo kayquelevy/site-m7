@@ -220,9 +220,14 @@
       { id: "ind", label: "Indústria", tag: "Indústria Pharma", title: "Indústria farmacêutica", desc: "Posicionamento, marketing de conversão e M7 Pharma para marcas com visão de futuro.", ang: Math.PI }
     ];
 
-    let hovered = null, active = null;
+    let hovered = null, active = null, onScreen = true;
     let mouse = { x: -9999, y: -9999 };
     const flows = []; // traveling energy dots
+
+    // só anima quando visível na tela
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(es => { onScreen = es[0].isIntersecting; }, { threshold: 0, rootMargin: "120px" }).observe(ec);
+    }
 
     const panel = { tag: $("#ecoTag"), title: $("#ecoTitle"), desc: $("#ecoDesc"), wrap: $("#ecoPanel") };
     const setPanel = node => {
@@ -235,7 +240,7 @@
     setPanel(NODES[0]);
 
     const layout = () => {
-      dpr = Math.min(devicePixelRatio || 1, 2);
+      dpr = Math.min(devicePixelRatio || 1, 1.5);
       w = ec.width = ec.clientWidth * dpr;
       h = ec.height = ec.clientHeight * dpr;
       cx = w / 2; cy = h / 2;
@@ -258,16 +263,17 @@
     });
     ec.addEventListener("mouseleave", () => { mouse.x = -9999; mouse.y = -9999; hovered = null; });
 
-    // spawn energy flows from outer nodes to center
+    // spawn energy flows from outer nodes to center (pausa off-screen)
     setInterval(() => {
-      if (document.hidden) return;
+      if (document.hidden || !onScreen || flows.length > 14) return;
       const outer = NODES.filter(n => !n.center);
       const n = outer[Math.floor(Math.random() * outer.length)];
       flows.push({ from: n, t: 0, speed: 0.008 + Math.random() * 0.006 });
-    }, 380);
+    }, 460);
 
     let tg = 0;
     const draw = () => {
+      if (!onScreen || document.hidden) { requestAnimationFrame(draw); return; }
       tg += 0.016;
       ctx.clearRect(0, 0, w, h);
       const m7 = NODES[0];
