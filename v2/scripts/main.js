@@ -180,6 +180,19 @@
     }
   }
 
+  /* ---------------- pilares acendem ao entrar na tela (sem depender de hover) ---------------- */
+  const pillarEls = $$(".pillar");
+  if (pillarEls.length) {
+    if ("IntersectionObserver" in window) {
+      const pio = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) e.target.classList.add("active"); });
+      }, { rootMargin: "-28% 0px -28% 0px", threshold: 0 });
+      pillarEls.forEach(p => pio.observe(p));
+    } else {
+      pillarEls.forEach(p => p.classList.add("active"));
+    }
+  }
+
   /* ---------------- efeitos GSAP (parallax + ticker) ---------------- */
   if (window.gsap && window.ScrollTrigger && !reduced) {
     gsap.registerPlugin(ScrollTrigger);
