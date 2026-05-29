@@ -118,16 +118,32 @@
   /* ---------------- SPLIT TEXT ---------------- */
   const splitLines = $$("[data-split]");
   splitLines.forEach(line => {
-    const text = line.textContent;
-    line.setAttribute("aria-label", text);
-    line.innerHTML = "";
-    [...text].forEach(ch => {
-      const span = document.createElement("span");
-      span.className = "char";
-      span.textContent = ch === " " ? " " : ch;
-      span.setAttribute("aria-hidden", "true");
-      line.appendChild(span);
+    line.setAttribute("aria-label", line.textContent);
+    const tokens = [];
+    [...line.childNodes].forEach(node => {
+      const em = node.nodeName === "EM";
+      [...(node.textContent || "")].forEach(ch => tokens.push({ ch, em }));
     });
+    const frag = document.createDocumentFragment();
+    let i = 0;
+    while (i < tokens.length) {
+      if (tokens[i].ch === " ") { frag.appendChild(document.createTextNode(" ")); i++; continue; }
+      const word = document.createElement("span");
+      let isEm = false;
+      while (i < tokens.length && tokens[i].ch !== " ") {
+        const c = document.createElement("span");
+        c.className = "char";
+        c.textContent = tokens[i].ch;
+        c.setAttribute("aria-hidden", "true");
+        if (tokens[i].em) isEm = true;
+        word.appendChild(c);
+        i++;
+      }
+      word.className = "word" + (isEm ? " word--em" : "");
+      frag.appendChild(word);
+    }
+    line.innerHTML = "";
+    line.appendChild(frag);
   });
 
   let heroStarted = false;
