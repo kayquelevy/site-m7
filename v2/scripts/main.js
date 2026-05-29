@@ -279,6 +279,16 @@
     });
     ec.addEventListener("mouseleave", () => { mouse.x = -9999; mouse.y = -9999; hovered = null; });
 
+    // toque: tocar num nó atualiza o painel (mobile)
+    ec.addEventListener("touchstart", e => {
+      const t = e.touches[0]; if (!t) return;
+      const r = ec.getBoundingClientRect();
+      const tx = (t.clientX - r.left) * dpr, ty = (t.clientY - r.top) * dpr;
+      let hit = null;
+      for (const n of NODES) { if (Math.hypot(tx - n.x, ty - n.y) < n.r + 16 * dpr) { hit = n; break; } }
+      if (hit) { hovered = hit; active = hit; setPanel(hit); }
+    }, { passive: true });
+
     // spawn energy flows from outer nodes to center (pausa off-screen)
     setInterval(() => {
       if (document.hidden || !onScreen || flows.length > 14) return;
@@ -338,9 +348,12 @@
         ctx.strokeStyle = n.center ? "rgba(255,179,125,.8)" : (lit ? "rgba(255,179,125,.9)" : "rgba(233,78,27,.5)");
         ctx.stroke();
 
-        // label
-        ctx.fillStyle = (n.center || lit) ? "#fff" : "rgba(244,244,246,.85)";
-        ctx.font = `${(n.center ? 16 : 12.5) * dpr}px "Space Grotesk", sans-serif`;
+        // label (auto-ajusta para caber dentro do círculo)
+        let fs = (n.center ? 16 : 12.5) * dpr;
+        ctx.font = `${fs}px "Space Grotesk", sans-serif`;
+        const maxW = rr * 1.65, tw = ctx.measureText(n.label).width;
+        if (tw > maxW) { fs *= maxW / tw; ctx.font = `${fs}px "Space Grotesk", sans-serif`; }
+        ctx.fillStyle = (n.center || lit) ? "#fff" : "rgba(244,244,246,.9)";
         ctx.textAlign = "center"; ctx.textBaseline = "middle";
         ctx.fillText(n.label, n.x, n.y);
       });
