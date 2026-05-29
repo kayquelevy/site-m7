@@ -155,35 +155,42 @@
     gsap.to($$(".hero [data-reveal]"), { opacity: 1, y: 0, duration: 1, ease: "power3.out", stagger: .1, delay: .5, onStart() { $$(".hero [data-reveal]").forEach(r => r.classList.add("in")); } });
   }
 
-  /* ---------------- GSAP reveals + counters ---------------- */
+  /* ---------------- REVEAL via IntersectionObserver (robusto no mobile) ---------------- */
+  const revealEls = $$("[data-reveal]").filter(el => !el.closest(".hero"));
+  if ("IntersectionObserver" in window && !reduced) {
+    const ro = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); ro.unobserve(e.target); } });
+    }, { rootMargin: "0px 0px -8% 0px", threshold: 0 });
+    revealEls.forEach(el => ro.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add("in"));
+  }
+
+  /* ---------------- CTA split-text (dispara por visibilidade) ---------------- */
+  const ctaTitle = $(".cta__title");
+  if (ctaTitle) {
+    const ctaChars = $$(".cta__title .char");
+    if (reduced || !window.gsap || !("IntersectionObserver" in window)) {
+      ctaChars.forEach(c => c.style.transform = "none");
+    } else {
+      const cio = new IntersectionObserver(es => {
+        if (es[0].isIntersecting) { gsap.to(ctaChars, { y: "0%", duration: 1, ease: "expo.out", stagger: .025 }); cio.disconnect(); }
+      }, { threshold: 0.15 });
+      cio.observe(ctaTitle);
+    }
+  }
+
+  /* ---------------- efeitos GSAP (parallax + ticker) ---------------- */
   if (window.gsap && window.ScrollTrigger && !reduced) {
     gsap.registerPlugin(ScrollTrigger);
-
-    $$("[data-reveal]").forEach(el => {
-      if (el.closest(".hero")) return;
-      ScrollTrigger.create({ trigger: el, start: "top 88%", once: true, onEnter: () => el.classList.add("in") });
-    });
-
-    // split-text in CTA on scroll
-    $$(".cta__title .char").forEach(() => {});
-    ScrollTrigger.create({
-      trigger: ".cta__title", start: "top 80%", once: true,
-      onEnter: () => gsap.to($$(".cta__title .char"), { y: "0%", duration: 1, ease: "expo.out", stagger: .025 })
-    });
-
-    // pillar parallax on number
     $$(".pillar").forEach(p => {
       gsap.to($(".pillar__num", p), { y: -40, ease: "none", scrollTrigger: { trigger: p, start: "top bottom", end: "bottom top", scrub: 1 } });
     });
-
-    // ticker scroll-velocity skew
     const tickerRow = $(".ticker__row");
-    if (tickerRow) {
-      gsap.to(tickerRow, { xPercent: -50, repeat: -1, duration: 30, ease: "none" });
-    }
-  } else {
-    $$("[data-reveal]").forEach(el => el.classList.add("in"));
-    $$(".cta__title .char,.char").forEach(c => c.style.transform = "none");
+    if (tickerRow) gsap.to(tickerRow, { xPercent: -50, repeat: -1, duration: 30, ease: "none" });
+    // recalibra posições após carregar fontes/layout (corrige scroll defasado)
+    addEventListener("load", () => ScrollTrigger.refresh());
+    setTimeout(() => ScrollTrigger.refresh(), 1900);
   }
 
   // counters
